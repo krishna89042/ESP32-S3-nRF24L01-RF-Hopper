@@ -1,0 +1,25 @@
+[ ESP32-S3 Boot ]
+        │
+        ▼
+ [ Initialize Serial & Disable Internal Wi-Fi/BT ]
+        │
+        ▼
+ [ Configure Custom SPI Bus (SCK=18, MISO=13, MOSI=11) ]
+        │
+        ▼
+ [ Initialize nRF24L01 via radio.begin() ] ──(Fail)──> [ Print Error Message ]
+        │ (Success)
+        ▼
+ [ Configure Radio Parameters ]
+ ├── Disable Auto-ACK & CRC
+ ├── Set Max Power (RF24_PA_MAX) & 2Mbps Data Rate
+ └── Enable Constant Carrier Mode (startConstCarrier)
+        │
+        ▼
+ ┌────────────────────────────────────────┐
+ │            MAIN LOOP (loop)            │
+ │                                        │
+ │  1. Randomly pick odd/even BT channel  │
+ │  2. Update radio frequency channel     │
+ │  3. Delay micro-intervals (0-60 µs)    │
+ └────────────────────────────────────────┘
